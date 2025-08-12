@@ -9,6 +9,7 @@
 
     <ItemGroup>
         <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**/*.cs"/>
+        <Compile Remove="Steps\Themes\StepsTheme.axaml\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -25,6 +26,26 @@
         <ProjectReference Include="../AtomUI.IconPkg.AntDesign/AtomUI.IconPkg.AntDesign.csproj" />
         <ProjectReference Include="../AtomUI.Theme/AtomUI.Theme.csproj" />
         <ProjectReference Include="../AtomUI.Generator/AtomUI.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AvaloniaXaml Remove="Steps\Themes\StepsTheme.axaml\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Steps\Themes\StepsTheme.axaml\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Remove="Steps\Themes\StepsTheme.axaml\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AvaloniaResource Remove="Steps\Themes\StepsTheme.axaml\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Steps\Themes\StepsTheme.axaml\**" />
     </ItemGroup>
 
 </Project>
