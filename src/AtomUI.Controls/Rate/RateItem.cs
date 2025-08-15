@@ -38,10 +38,8 @@ public class RateItem : ContentControl
 
         if (_fgPath != null)
         {
-            // 使用矩形 Clip 来裁切顶层金星
             _clip        = new RectangleGeometry();
             _fgPath.Clip = _clip;
-            // 初次设置
             _transFillRatioToClip();
         } 
     }
@@ -49,10 +47,8 @@ public class RateItem : ContentControl
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);
-        //Console.WriteLine($"{change.Property.Name}: OnPropertyChanged");
         if (change.Property == FillRatioProperty)
         {
-            //this.Find<Path>("PART_ForegroundStar");
         }
     }
 
