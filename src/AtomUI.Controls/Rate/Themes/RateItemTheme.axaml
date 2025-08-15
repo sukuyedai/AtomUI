@@ -1,0 +1,36 @@
+﻿<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:atom="https://atomui.net"
+    xmlns:converters="using:AtomUI.Controls.Converters"
+    xmlns:converters1="clr-namespace:AtomUI.Controls.Converters"
+    x:ClassModifier="internal">
+    <converters1:StringToTextBlockConverter x:Key="StringToTextBlockConverter" VerticalAlignment="Center" />
+    <ControlTheme x:Key="{x:Type atom:RateItem}" TargetType="atom:RateItem">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid Width="20" Height="20">
+                    <!-- 背景五角星（底层） -->
+                    <Path
+                        x:Name="PART_BackgroundStar"
+                        Data="M 50,0 L 61,35 L 98,35 L 68,57 L 79,91 L 50,70 L 21,91 L 32,57 L 2,35 L 39,35 Z"
+                        Fill="#f0f0f0"
+                        Stretch="Uniform"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"/>
+
+                    <!-- 前景五角星（顶层，将被Clip裁剪） -->
+                    <Path
+                        x:Name="PART_ForegroundStar"
+                        Data="M 50,0 L 61,35 L 98,35 L 68,57 L 79,91 L 50,70 L 21,91 L 32,57 L 2,35 L 39,35 Z"
+                        Fill="#fadb14"
+                        Stretch="Uniform"
+                        Clip=""
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"/>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+
+    </ControlTheme>
+</ResourceDictionary>
