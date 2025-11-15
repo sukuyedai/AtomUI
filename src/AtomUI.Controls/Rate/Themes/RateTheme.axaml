@@ -9,15 +9,13 @@
                 <Border Name="{x:Static atom:RateThemeConstants.FramePart}"
                         CornerRadius="{TemplateBinding CornerRadius}"
                         Padding="{TemplateBinding Padding}"
-                        ClipToBounds="True">
+                        ClipToBounds="True"
+                        Background="Transparent">
                     <ItemsPresenter Name="{x:Static atom:RateThemeConstants.ItemsPresenterPart}">
                         <ItemsPresenter.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <!--
-                                <atom:RateStackPanel></atom:RateStackPanel>
-                                -->
                                 <StackPanel Orientation="Horizontal"
-                                            Spacing="6" />
+                                            Spacing="{DynamicResource {x:Static atom:RateTokenKey.Spacing}}" />
                             </ItemsPanelTemplate>
                         </ItemsPresenter.ItemsPanel>
                     </ItemsPresenter>

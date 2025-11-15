@@ -1,4 +1,6 @@
 ﻿using AtomUI.Theme;
+using AtomUI.Theme.Data;
+using AtomUI.Theme.Styling;
 using AtomUI.Theme.Utils;
 using Avalonia;
 using Avalonia.Controls;
@@ -24,7 +26,7 @@ public class Rate : ItemsControl,
         AvaloniaProperty.Register<Rate, bool>(nameof(IsDisabled));
 
     public static readonly StyledProperty<double> ValueProperty =
-        AvaloniaProperty.Register<Rate, double>(nameof(Value), defaultValue: 1.3);
+        AvaloniaProperty.Register<Rate, double>(nameof(Value));
 
     public static readonly StyledProperty<string> CharacterProperty =
         AvaloniaProperty.Register<Rate, string>(nameof(Character));
@@ -85,10 +87,15 @@ public class Rate : ItemsControl,
 
     public Rate()
     {
-        BuildRateItems();
         this.PointerMoved  += OnPointerMoved;
         this.PointerExited += OnPointerExited;
         this.RegisterResources();
+    }
+    
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        BuildRateItems();
     }
     
     private void BuildRateItems()
@@ -110,7 +117,6 @@ public class Rate : ItemsControl,
             if (Items[i] is RateItem rateItem)
             {
                 rateItem.FillRatio = CalculateFillRatio(i, Value);
-                Console.WriteLine($"fillRatio: {rateItem.FillRatio}");
             }
         }
     }
@@ -125,15 +131,65 @@ public class Rate : ItemsControl,
 
     private void OnPointerMoved(object? sender, PointerEventArgs e)
     {
-        var pos = e.GetPosition(this); // 鼠标相对控件位置
+        if (IsDisabled)
+        {
+            return;
+        }
+
+        var    pointerPosition = e.GetPosition(this);
+        var    rateWidth       = this.Bounds.Width;
+        var    rateHeight      = this.Bounds.Height;
+        double rateItemWidth   = 0.0;
+        double spacing         = 0.0;
+        if (TokenResourceUtils.FindTokenResource(this, RateTokenKey.ItemWidth) is double _rateItemWidth)
+        {
+            rateItemWidth = _rateItemWidth;
+        }
+
+        if (TokenResourceUtils.FindTokenResource(this, RateTokenKey.Spacing) is double _spacing)
+        {
+            spacing = _spacing;
+        }
+
+        var rateWrapWidth     = (Count - 1) * spacing + Count * rateItemWidth;
+        var rateItemWrapWidth = rateItemWidth + spacing;
         //_hoverValue = Math.Clamp(pos.X / _starWidth, 0, TotalStars); 
-        Console.WriteLine($"pos: {pos}");
-        InvalidateVisual(); // 触发重绘
+        if (pointerPosition.X > rateWrapWidth)
+        {
+            return;
+        }
+
+        var hoveredRateItemNumber       = (int)(pointerPosition.X / rateItemWrapWidth);
+        var hoveredCurrentRateItemWidth = pointerPosition.X % rateItemWrapWidth;
+        var ratio                       = hoveredCurrentRateItemWidth / rateItemWidth;
+
+        for (var i = 0; i < Items.Count; i++)
+        {
+            if (this.Items[i] is RateItem rateItem)
+            {
+                if (i == hoveredRateItemNumber)
+                {
+                    rateItem.FillRatio = ratio;
+                }
+                else if(i < hoveredRateItemNumber)
+                {
+                    rateItem.FillRatio = 1.0;
+                }
+                else
+                {
+                    rateItem.FillRatio = 0;
+                }
+            }
+        }
+        InvalidateVisual();
     }
 
     private void OnPointerExited(object? sender, PointerEventArgs e)
     {
-        //_hoverValue = 0;
+        if (IsDisabled)
+        {
+            return;
+        }
         InvalidateVisual();
     }
     

@@ -9,8 +9,8 @@
     <ControlTheme x:Key="{x:Type atom:RateItem}" TargetType="atom:RateItem">
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid Width="20" Height="20">
-                    <!-- 背景五角星（底层） -->
+                <Grid Width="{DynamicResource {x:Static atom:RateTokenKey.ItemWidth}}" 
+                      Height="{DynamicResource {x:Static atom:RateTokenKey.ItemHeight}}">
                     <Path
                         x:Name="PART_BackgroundStar"
                         Data="M 50,0 L 61,35 L 98,35 L 68,57 L 79,91 L 50,70 L 21,91 L 32,57 L 2,35 L 39,35 Z"
@@ -19,13 +19,11 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"/>
 
-                    <!-- 前景五角星（顶层，将被Clip裁剪） -->
                     <Path
                         x:Name="PART_ForegroundStar"
                         Data="M 50,0 L 61,35 L 98,35 L 68,57 L 79,91 L 50,70 L 21,91 L 32,57 L 2,35 L 39,35 Z"
                         Fill="#fadb14"
                         Stretch="Uniform"
-                        Clip=""
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"/>
                 </Grid>

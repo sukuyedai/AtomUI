@@ -623,6 +623,13 @@ namespace AtomUI.Theme.Styling
         public static readonly TokenResourceKey TextMargin = new TokenResourceKey("RadioButton.TextMargin");
     }
 
+    public static class RateTokenKey
+    {
+        public static readonly TokenResourceKey ItemHeight = new TokenResourceKey("Rate.ItemHeight");
+        public static readonly TokenResourceKey ItemWidth = new TokenResourceKey("Rate.ItemWidth");
+        public static readonly TokenResourceKey Spacing = new TokenResourceKey("Rate.Spacing");
+    }
+
     public static class ScrollBarTokenKey
     {
         public static readonly TokenResourceKey ContentHPadding = new TokenResourceKey("ScrollBar.ContentHPadding");
